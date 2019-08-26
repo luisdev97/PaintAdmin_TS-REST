@@ -2,6 +2,17 @@ import { Schema, model } from 'mongoose';
 import mongoose from 'mongoose';
 
 
+//Task Interface to validate Task Type
+export interface Task extends mongoose.Document {
+    startDate: Date,
+    endDate: Date,
+    value: Number,
+    matter: String,
+    state: String,
+    client: String
+}
+
+//Task Schema to establish the properties of the tasks collection on MongoDB 
 const taskSchema: Schema = new Schema({
     startDate: { type: Date,  required: true },
     endDate: { type: Date,  required: true },
@@ -11,14 +22,4 @@ const taskSchema: Schema = new Schema({
     client: { type: Schema.Types.ObjectId, ref: 'Client', required: true}
 });
 
-
-export interface Client extends mongoose.Document {
-    startDate: Date,
-    endDate: Date,
-    value: Number,
-    matter: String,
-    state: String,
-    client: String
-}
-
-export default model('Client',taskSchema);
+export default model<Task>('Task',taskSchema);

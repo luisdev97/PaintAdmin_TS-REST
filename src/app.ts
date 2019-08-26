@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
+import { myLogger, errores } from './middlwares/index';
 
 import ClientRoutes from './routes/ClientRoutes';
+import TaskRoutes from './routes/TaskRoutes';
 
 
 //Class that contains the logic of our express server
@@ -35,11 +37,13 @@ class Server {
         this.app.use(helmet());
         this.app.use(compression());
         this.app.use(cors());
+        //this.app.use(myLogger);
     }
 
 
     routes(){
         this.app.use('/api/clients',ClientRoutes);
+        this.app.use('/api/tasks',TaskRoutes)
     }
 
 
